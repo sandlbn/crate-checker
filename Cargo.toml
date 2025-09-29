@@ -1,0 +1,160 @@
+[package]
+name = "crate-checker"
+version = "1.0.0"
+edition = "2021"
+authors = ["Marcin Spoczynski <marcin@spoczynski.com>"]
+description = "Rust crate information retrieval tool with CLI and API server"
+documentation = "https://docs.rs/crate-checker"
+homepage = "https://github.com/sandlbn/crate-checker"
+repository = "https://github.com/sandlbn/crate-checker"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["cli", "crates", "cargo", "api", "dependencies"]
+categories = ["command-line-utilities", "development-tools", "api-bindings"]
+exclude = [
+    "/.github/*",
+    "/tests/*",
+    "/.gitignore",
+    "/.cargo/*"
+]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[[bin]]
+name = "crate-checker"
+path = "src/main.rs"
+
+[lib]
+name = "crate_checker"
+path = "src/lib.rs"
+
+[[example]]
+name = "basic_usage"
+path = "examples/basic_usage.rs"
+
+[[example]]
+name = "batch_processing"
+path = "examples/batch_processing.rs"
+
+[[example]]
+name = "custom_client"
+path = "examples/custom_client.rs"
+
+[dependencies]
+# Async runtime
+tokio = { version = "1.35", features = ["full"] }
+
+# HTTP client
+reqwest = { version = "0.11", features = ["json", "rustls-tls"], default-features = false }
+
+# CLI framework
+clap = { version = "4.4", features = ["derive", "env"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+
+# Error handling
+thiserror = "1.0"
+
+# Configuration management
+config = "0.14"
+toml = "0.8"
+
+# Logging and tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Date and time
+chrono = { version = "0.4", features = ["serde"] }
+
+# Web server framework
+axum = { version = "0.7", features = ["json"] }
+tower = { version = "0.4", features = ["full"] }
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+
+# Concurrent data structures
+dashmap = "5.5"
+
+# Table formatting for CLI
+tabled = "0.15"
+
+# UUID generation
+uuid = { version = "1.6", features = ["v4"] }
+
+# URL encoding
+urlencoding = "2.1"
+
+# System information
+num_cpus = "1.16"
+
+[dev-dependencies]
+# Integration test framework and assertion helpers
+assert_cmd = "2.0"
+predicates = "3.0"
+
+# Temporary files and directories for tests
+tempfile = "3.8"
+
+# For test timeouts and delays
+tokio-test = "0.4"
+
+# For tests that need to run serially
+serial_test = "3.0"
+
+# For capturing logs in tests
+test-log = "0.2"
+
+[features]
+default = []
+
+# Feature for additional server capabilities
+server = []
+
+# Feature for enhanced CLI output
+fancy-cli = []
+
+# Test utilities feature
+test-utilities = []
+
+# Optimize for faster builds in development
+[profile.dev]
+opt-level = 0
+debug = true
+incremental = true
+
+# Optimize for release builds
+[profile.release]
+opt-level = 3
+debug = false
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+# Optimize for smaller binary size
+[profile.release-min]
+inherits = "release"
+opt-level = "z"
+lto = "fat"
+codegen-units = 1
+strip = true
+
+# Test configuration
+[profile.test]
+opt-level = 0
+debug = true
+overflow-checks = true
+
+# Benchmark configuration
+[profile.bench]
+opt-level = 3
+debug = false
+lto = true
+codegen-units = 1
+
+[badges]
+maintenance = { status = "actively-developed" }
