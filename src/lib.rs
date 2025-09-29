@@ -20,7 +20,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! crate-checker = "1.0.0"
+//! crate-checker = "0.1.0"
 //! ```
 //!
 //! ## Library Usage
@@ -75,7 +75,7 @@
 //!
 //! // Process multiple crates with specific versions
 //! let mut versions = HashMap::new();
-//! versions.insert("serde".to_string(), "1.0.0".to_string());
+//! versions.insert("serde".to_string(), "0.1.0".to_string());
 //! versions.insert("tokio".to_string(), "latest".to_string());
 //!
 //! let result = client.process_crate_version_map(versions).await?;
@@ -202,7 +202,7 @@ pub use config::{AppConfig, EnvironmentConfig};
 pub const DEFAULT_API_URL: &str = "https://crates.io/api/v1";
 
 /// Default user agent for requests
-pub const DEFAULT_USER_AGENT: &str = "crate-checker/1.0.0";
+pub const DEFAULT_USER_AGENT: &str = "crate-checker/0.1.0";
 
 /// Default request timeout in seconds
 pub const DEFAULT_TIMEOUT_SECS: u64 = 30;

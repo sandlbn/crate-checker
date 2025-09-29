@@ -521,7 +521,7 @@ fn test_all_default_values() {
 
     // Crates.io defaults
     assert_eq!(config.crates_io.api_url, "https://crates.io/api/v1");
-    assert_eq!(config.crates_io.user_agent, "crate-checker/1.0.0");
+    assert_eq!(config.crates_io.user_agent, "crate-checker/0.1.0");
     assert_eq!(config.crates_io.timeout_seconds, 30);
     assert_eq!(config.crates_io.max_concurrent, 10);
     assert_eq!(config.crates_io.retry_attempts, 3);

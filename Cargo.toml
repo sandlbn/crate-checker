@@ -1,6 +1,6 @@
 [package]
 name = "crate-checker"
-version = "1.0.0"
+version = "0.1.0"
 edition = "2021"
 authors = ["Marcin Spoczynski <marcin@spoczynski.com>"]
 description = "Rust crate information retrieval tool with CLI and API server"
