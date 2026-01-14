@@ -1,0 +1,46 @@
+name: SBOM (source) - local test
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref to scan (branch/tag/SHA). Default = current ref"
+        required: false
+        type: string
+        default: ""
+      path:
+        description: "Path to scan"
+        required: false
+        type: string
+        default: "."
+      format:
+        description: "SBOM format (spdx-json, cyclonedx-json, etc.)"
+        required: false
+        type: string
+        default: "spdx-json"
+      artifact_name:
+        description: "Artifact name"
+        required: false
+        type: string
+        default: "sbom-source.spdx.json"
+
+permissions:
+  contents: read
+
+jobs:
+  sbom-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref != '' && inputs.ref || github.ref }}
+
+      - name: Generate SBOM (Syft)
+        uses: anchore/sbom-action@v0
+        with:
+          path: ${{ inputs.path }}
+          format: ${{ inputs.format }}
+          artifact-name: ${{ inputs.artifact_name }}
+          upload-release-assets: false
+
